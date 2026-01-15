@@ -9,8 +9,6 @@ task=$1
 
 train_path="${BASE_DIR}/data/${task}/train_full.jsonl"
 test_path="${BASE_DIR}/data/${task}/test_truth.jsonl"
-ckpt_dir="${BASE_DIR}/src/ptc/checkpoints/${task}"
-
 
 echo ">>> [1/3] Running XGBoost Ranker..."
 python src/ltr_xgboost.py \
@@ -32,11 +30,8 @@ python src/ltr_nn.py \
   --epoch 5 \
   --do_eval True
 
-
 best_file=$(ls -t ${ckpt_dir}/nn/test_pred_ep*.jsonl | head -1)
 echo "Using ListNet output: ${best_file}"
-
-
 
 
 echo ">>> [2.5/3] Running RankNet..."
